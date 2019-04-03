@@ -78,3 +78,7 @@ D:\Scoala\An 2\Sem 2\Assignments\ISS\cms\CMS\CMS\obj\Debug\CMS.csproj.CoreCompil
 D:\Scoala\An 2\Sem 2\Assignments\ISS\cms\CMS\CMS\obj\Debug\CMS.csproj.CopyComplete
 D:\Scoala\An 2\Sem 2\Assignments\ISS\cms\CMS\CMS\obj\Debug\CMS.dll
 D:\Scoala\An 2\Sem 2\Assignments\ISS\cms\CMS\CMS\obj\Debug\CMS.pdb
+D:\Scoala\An 2\Sem 2\Assignments\ISS\cms\CMS\CMS\bin\EntityFramework.dll
+D:\Scoala\An 2\Sem 2\Assignments\ISS\cms\CMS\CMS\bin\EntityFramework.SqlServer.dll
+D:\Scoala\An 2\Sem 2\Assignments\ISS\cms\CMS\CMS\bin\EntityFramework.xml
+D:\Scoala\An 2\Sem 2\Assignments\ISS\cms\CMS\CMS\bin\EntityFramework.SqlServer.xml
