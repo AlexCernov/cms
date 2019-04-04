@@ -1,4 +1,8 @@
-﻿using CMS.ViewModels;
+﻿using CMS.Exception;
+using CMS.Models;
+using CMS.Repository;
+using CMS.Service;
+using CMS.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +13,45 @@ namespace CMS.Controllers
 {
     public class PCMemberController : Controller
     {
-        // GET: PCMember
-        public ActionResult Index()
+        IPCMemberService PCMemberService;
+
+        public PCMemberController(IPCMemberService repo)
         {
-            return View();
+            PCMemberService = repo;
         }
 
-        [HttpPost]
-        public ActionResult Register(IRegistrationViewModel rvm)
+        public PCMemberController()
         {
-            return View();
+            PCMemberService = new PCMemberService(new PCMemberRepository());
+        }
+
+        // GET:PCMember
+        [HttpGet]
+        public ActionResult Registration()
+        {
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("PermissionDenied");
+            }
+            RegistrationViewModel model = new RegistrationViewModel();
+            return View(model);
+        }
+
+        // SET:PCMember
+        [HttpPost]
+        public ActionResult Registration(PCMember pcmember)
+        {
+            try
+            {
+
+                var model = new RegistrationViewModel(ModelState.IsValid, pcmember, PCMemberService);
+                return View(model);
+            }
+            catch (System.Exception e)
+            {
+                throw new InternetException("Cannot request the correspondind viewmodel!\n");
+            }
+
         }
     }
 }
