@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using CMS.Exception;
-using Exception.DatabaseException;
-using Exception.InternetException;
+using CMS.Service;
+using CMS.Models;
 
 
 namespace CMS.ViewModels
@@ -19,7 +19,7 @@ namespace CMS.ViewModels
         public RegistrationViewModel()
         {
             Message = null;
-            Title = "Registration"
+            Title = "Registration";
         }
 
         public RegistrationViewModel(bool modelState, PCMember pcmember, IPCMemberService pcmemberService)
@@ -43,7 +43,7 @@ namespace CMS.ViewModels
                     return;
                 }
 
-                Message = " Registration successfully done.;
+                Message = " Registration successfully done.";
                 Status = true;
             }
             else

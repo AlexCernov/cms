@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using CMS.Models;
+using CMS.Repository;
 
 namespace CMS.Service
 {
@@ -16,7 +18,7 @@ namespace CMS.Service
 
         public PCMember Add(PCMember addedPCMember)
         {
-            return pcmemberRepository.Add(addedPCMember):
+            return pcmemberRepository.Add(addedPCMember);
         }
 
         public bool EmailExists(string email)
