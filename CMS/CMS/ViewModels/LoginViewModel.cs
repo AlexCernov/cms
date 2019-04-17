@@ -6,18 +6,22 @@ using System.Web.Security;
 using CMS.Exception;
 using CMS.Models;
 using CMS.Service;
+using CMS.ViewModels;
+using System.Web.Helpers;
 
 namespace CMS.ViewModels
 {
     public class LoginViewModel : ILoginViewModel
     {
-        public string Username;
+		// private static readonly log4net.ILog Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+		public string Username;
         public string Password;
         public bool RememberMe;
 
         public HttpCookie Cookie;
+		private string email;
 
-        public string Message { get; set; }
+		public string Message { get; set; }
 
         public bool Status { get; }
 
@@ -25,10 +29,10 @@ namespace CMS.ViewModels
 
         public LoginViewModel(IPCMemberService pCMemberService, Guid activationCode)
         {
-            SetCookie(pCMemberService.f, true);
+			SetCoockie(pCMemberService.f, true);
         }
 
-        public LoginViewModel(bool modelState, string username, string password, bool rememberMe, PCMemberService pcMemberService, out int returnValue)
+        public LoginViewModel(bool modelState, string username, string password, bool rememberMe, IPCMemberService pcmemberService, out int returnValue)
         {
             if (modelState)
             {
@@ -36,7 +40,7 @@ namespace CMS.ViewModels
                 {
                     PCMember user = new PCMember("", email, password);
                     RememberMe = rememberMe;
-                    Status = CheckUser(pcMemberService, user);
+                    Status = CheckUser(pcmemberService, user);
                     if (Status)
                     {
                         Username = username;
@@ -68,33 +72,110 @@ namespace CMS.ViewModels
             Status = false;
         }
 
-        public bool CheckUser(IPCMemberService pcmemberService, PCMember user)
-        {
-            PCMember dbUser;
-            try
-            {
-                bool usernameExists = pcmemberService.UsernameExists(user.Username);
-                if(!usernameExists)
-                {
-                    Message = "Username or password is incorrect ! ";
-                    return false;
-                }
-            }
-            catch 
-            {
+		private bool CheckUser(IPCMemberService pcmemberService, PCMember user)
+		{
+			PCMember dbUser;
+			try
+			{
+				bool usernameExists = pcmemberService.UsernameExists(user.Username);
+				if (!usernameExists)
+				{
+					Message = "Username or password is incorrect ! ";
+					return false;
+				}
+				dbUser = pcmemberService.FindByEmail(email);
+			}
+			catch
+			{
+				throw;
+			}
 
-                throw;
-            }
-        }
+			bool goodPassword;
+			try
+			{
+				if (dbUser.Password == Crypto.Hash(user.Password))
+					goodPassword = true;
+				else
+					goodPassword = false;
+			}
+			catch
+			{
+				throw;
+			}
 
-        public void SetCoockie(string username, bool rememberMe)
-        {
-            int timeout = rememberMe ? 262800 : 20; // 262800 min = 1/2 year
-            var ticket = new FormsAuthenticationTicket(username, rememberMe, timeout);
-            string encrypted = FormsAuthentication.Encrypt(ticket);
-            Cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
-            Cookie.Expires = DateTime.Now.AddMinutes(timeout);
-            Cookie.HttpOnly = true;
-        }
-    }
+			bool usernameVerified = false;
+			if (!goodPassword || !usernameVerified)
+			{
+				Message = " Your email is invalid or your password is invalid or" +
+						  " you haven't verified your email!";
+				return false;
+			}
+
+			SetCoockie(user.Username, RememberMe);
+			return true;
+		}
+
+		bool ILoginViewModel.CheckUser(IPCMemberService pcmemberService, PCMember user)
+		{
+			PCMember dbUser;
+			try
+			{
+				bool usernameExists = pcmemberService.UsernameExists(user.Username);
+				if (!usernameExists)
+				{
+					Message = "Username or password is incorrect ! ";
+					return false;
+				}
+				dbUser = pcmemberService.FindByEmail(email);
+			}
+			catch
+			{
+				throw;
+			}
+
+			bool goodPassword;
+			try
+			{
+				if (dbUser.Password == Crypto.Hash(user.Password))
+					goodPassword = true;
+				else
+					goodPassword = false;
+			}
+			catch
+			{
+				throw;
+			}
+
+			bool usernameVerified = false;
+			if (!goodPassword || !usernameVerified)
+			{
+				Message = " Your email is invalid or your password is invalid or" +
+						  " you haven't verified your email!";
+				return false;
+			}
+
+			SetCoockie(user.Username, RememberMe);
+			return true;
+		}
+
+		private void SetCoockie(string username, bool rememberMe)
+		{
+			int timeout = rememberMe ? 262800 : 20; // 262800 min = 1/2 year
+			var ticket = new FormsAuthenticationTicket(Username, rememberMe, timeout);
+			string encrypted = FormsAuthentication.Encrypt(ticket);
+			Cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
+			Cookie.Expires = DateTime.Now.AddMinutes(timeout);
+			Cookie.HttpOnly = true;
+		}
+
+		void ILoginViewModel.SetCoockie(string username, bool rememberMe)
+		{
+			int timeout = rememberMe ? 262800 : 20; // 262800 min = 1/2 year
+			var ticket = new FormsAuthenticationTicket(Username, rememberMe, timeout);
+			string encrypted = FormsAuthentication.Encrypt(ticket);
+			Cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
+			Cookie.Expires = DateTime.Now.AddMinutes(timeout);
+			Cookie.HttpOnly = true;
+		}
+	}
 }

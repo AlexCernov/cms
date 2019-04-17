@@ -6,8 +6,17 @@ namespace CMS.Models
 {
     public class PCMember
     {
+		private string v;
+		private string email;
 
-        [Key]
+		public PCMember(string v, string email, string password)
+		{
+			this.v = v;
+			this.email = email;
+			Password = password;
+		}
+
+		[Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 

@@ -1,6 +1,7 @@
 ﻿using CMS.Models;
 using CMS.Repository;
 using System.Collections.Generic;
+using System;
 
 namespace CMS.Service
 {
@@ -13,7 +14,20 @@ namespace CMS.Service
             this.pcmemberRepository = pcmemberRepository;
         }
 
-        public PCMember Add(PCMember addedPCMember)
+		string IPCMemberService.f
+		{
+			get
+			{
+				throw new NotImplementedException();
+			}
+
+			set
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		public PCMember Add(PCMember addedPCMember)
         {
             return pcmemberRepository.Add(addedPCMember);
         }
@@ -29,10 +43,40 @@ namespace CMS.Service
             return pcmemberRepository.FindAll();
         }
 
+		public PCMember findByEmail(string email)
+		{
+			return pcmemberRepository.FindByEmail(email);
+		}
+
         public bool UsernameExists(string username)
         {
             return pcmemberRepository.FindByUsername(username) != null;
 
         }
-    }
+
+		PCMember IPCMemberService.Add(PCMember addedPCMember)
+		{
+			throw new NotImplementedException();
+		}
+
+		bool IPCMemberService.EmailExists(string email)
+		{
+			throw new NotImplementedException();
+		}
+
+		IList<PCMember> IPCMemberService.FindAll()
+		{
+			throw new NotImplementedException();
+		}
+
+		PCMember IPCMemberService.FindByEmail(string email)
+		{
+			throw new NotImplementedException();
+		}
+
+		bool IPCMemberService.UsernameExists(string username)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

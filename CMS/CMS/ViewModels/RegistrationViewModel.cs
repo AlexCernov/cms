@@ -5,93 +5,112 @@ using System.Web;
 using CMS.Exception;
 using CMS.Models;
 using CMS.Service;
-using Exception.DatabaseException;
-using Exception.InternetException;
 
 
 namespace CMS.ViewModels
 {
-    public class RegistrationViewModel : IRegistrationViewModel
-    {
-        public PCMember PCMember;
-        public string Message;
-        public bool Status;
-        public string Title;
+	public class RegistrationViewModel : IRegistrationViewModel
+	{
+		public PCMember PCMember;
+		public string Message;
+		public bool Status;
+		public string Title;
 
-        public RegistrationViewModel()
-        {
-            Message = null;
-            Title = "Registration";
-        }
+		public RegistrationViewModel()
+		{
+			Message = null;
+			Title = "Registration";
+		}
 
-        public RegistrationViewModel(bool modelState, PCMember pcmember, IPCMemberService pcmemberService)
-        {
-            if (modelState)
-            {
-                try
-                {
-                    Status = CheckUser(pcmemberService, pcmember);
-                }
-                catch (InternetException e)
-                {
-                    Message = e.Message;
-                    Status = false;
-                    return;
-                }
-                catch (DatabaseException e)
-                {
-                    Message = e.Message;
-                    Status = false;
-                    return;
-                }
+		public RegistrationViewModel(bool modelState, PCMember pcmember, IPCMemberService pcmemberService)
+		{
+			if (modelState)
+			{
+				try
+				{
+					Status = CheckUser(pcmemberService, pcmember);
+				}
+				catch (InternetException e)
+				{
+					Message = e.Message;
+					Status = false;
+					return;
+				}
+				catch (DatabaseException e)
+				{
+					Message = e.Message;
+					Status = false;
+					return;
+				}
 
-                Message = " Registration successfully done.;
-                Status = true;
-            }
-            else
-            {
-                Message = " Invalid request";
-                Status = false;
-            }
-        }
-        public bool CheckUser(IPCMemberService pcmemberService, PCMember pcmember)
-        {
-            bool emailExists;
-            try
-            {
-                emailExists = pcmemberService.EmailExists(pcmember.Email);
-            }
-            catch
-            {
-                throw;
-            }
+				Message = " Registration successfully done.";
+				Status = true;
+			}
+			else
+			{
+				Message = " Invalid request";
+				Status = false;
+			}
+		}
+		public bool CheckUser(IPCMemberService pcmemberService, PCMember pcmember)
+		{
+			bool emailExists;
+			try
+			{
+				emailExists = pcmemberService.EmailExists(pcmember.Email);
+			}
+			catch
+			{
+				throw;
+			}
 
-            if (emailExists)
-            {
-                throw new DatabaseException(" Email already exists!\n");
-            }
-            try
-            {
-                PCMember = pcmemberService.Add(pcmember);
-            }
-            catch
-            {
-                throw;
-            }
+			if (emailExists)
+			{
+				throw new DatabaseException(" Email already exists!\n");
+			}
+			try
+			{
+				PCMember = pcmemberService.Add(pcmember);
+			}
+			catch
+			{
+				throw;
+			}
 
-            PCMember.Password = "";
+			PCMember.Password = "";
 
-            return true;
-        }
+			return true;
+		}
+	}
 
-        public bool CheckUser(IPCMemberService pcmemberService, PCMember pcmember)
-        {
-            throw new NotImplementedException();
-        }
+	//	bool IRegistrationViewModel.CheckUser(IPCMemberService pcmemberService, PCMember pcmember)
+	//	{
+	//		bool emailExists;
+	//		try
+	//		{
+	//			emailExists = pcmemberService.EmailExists(pcmember.Email);
+	//		}
+	//		catch
+	//		{
+	//			throw;
+	//		}
 
-        public bool CheckUser(IPCMemberService pcmemberService, PCMember pcmember)
-        {
-            throw new NotImplementedException();
-        }
-    }
+	//		if (emailExists)
+	//		{
+	//			throw new DatabaseException(" Email already exists!\n");
+	//		}
+	//		try
+	//		{
+	//			PCMember = pcmemberService.Add(pcmember);
+	//		}
+	//		catch
+	//		{
+	//			throw;
+	//		}
+
+	//		PCMember.Password = "";
+
+	//		return true;
+	//	}
+	//}
 }

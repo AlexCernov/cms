@@ -1,4 +1,5 @@
-﻿using CMS.Service;
+﻿using CMS.Models;
+using CMS.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace CMS.ViewModels
 {
     interface ILoginViewModel
     {
-        bool CheckUser(IPCMemberService pcmemberService);
+        bool CheckUser(IPCMemberService pcmemberService,PCMember user);
         void SetCoockie(string username, bool rememberMe);
     }
 }
