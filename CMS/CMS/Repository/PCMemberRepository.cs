@@ -49,11 +49,11 @@ namespace CMS.Repository
             return pcmembers;
         }
 
-        public PCMember FindByEmail(string email)
+        public PCMember FindByUsername(string username)
         {
             IList<PCMember> pcmembers = FindAll();
 
-            return pcmembers.SingleOrDefault(x => x.Email == email);
+            return pcmembers.SingleOrDefault(x => x.Username == username);
         }
     }
 }

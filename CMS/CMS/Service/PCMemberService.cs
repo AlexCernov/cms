@@ -21,9 +21,9 @@ namespace CMS.Service
             return pcmemberRepository.Add(addedPCMember);
         }
 
-        public bool EmailExists(string email)
+        public bool UsernameExists(string username)
         {
-            return pcmemberRepository.FindByEmail(email) != null;
+            return pcmemberRepository.FindByUsername(username) != null;
         }
 
         public IList<PCMember> FindAll()

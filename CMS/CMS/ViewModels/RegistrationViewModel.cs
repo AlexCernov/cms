@@ -54,19 +54,19 @@ namespace CMS.ViewModels
         }
         public bool CheckUser(IPCMemberService pcmemberService, PCMember pcmember)
         {
-            bool emailExists;
+            bool userExists;
             try
             {
-                emailExists = pcmemberService.EmailExists(pcmember.Email);
+                userExists = pcmemberService.UsernameExists(pcmember.Username);
             }
             catch
             {
                 throw;
             }
 
-            if (emailExists)
+            if (userExists)
             {
-                throw new DatabaseException(" Email already exists!\n");
+                throw new DatabaseException(" User already exists!\n");
             }
             try
             {

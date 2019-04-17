@@ -10,7 +10,7 @@ namespace CMS.Service
     public interface IPCMemberService
     {
         PCMember Add(PCMember addedPCMember);
-        bool EmailExists(string email);
+        bool UsernameExists(string username);
         IList<PCMember> FindAll();
     }
 }
