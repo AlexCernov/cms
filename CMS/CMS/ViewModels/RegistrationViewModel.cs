@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using CMS.Exception;
-using CMS.Models;
 using CMS.Service;
+using CMS.Models;
 
 
 namespace CMS.ViewModels
@@ -16,11 +16,11 @@ namespace CMS.ViewModels
 		public bool Status;
 		public string Title;
 
-		public RegistrationViewModel()
-		{
-			Message = null;
-			Title = "Registration";
-		}
+        public RegistrationViewModel()
+        {
+            Message = null;
+            Title = "Registration";
+        }
 
 		public RegistrationViewModel(bool modelState, PCMember pcmember, IPCMemberService pcmemberService)
 		{
@@ -43,74 +43,43 @@ namespace CMS.ViewModels
 					return;
 				}
 
-				Message = " Registration successfully done.";
-				Status = true;
-			}
-			else
-			{
-				Message = " Invalid request";
-				Status = false;
-			}
-		}
-		public bool CheckUser(IPCMemberService pcmemberService, PCMember pcmember)
-		{
-			bool emailExists;
-			try
-			{
-				emailExists = pcmemberService.EmailExists(pcmember.Email);
-			}
-			catch
-			{
-				throw;
-			}
+                Message = " Registration successfully done.";
+                Status = true;
+            }
+            else
+            {
+                Message = " Invalid request";
+                Status = false;
+            }
+        }
+        public bool CheckUser(IPCMemberService pcmemberService, PCMember pcmember)
+        {
+            bool userExists;
+            try
+            {
+                userExists = pcmemberService.UsernameExists(pcmember.Username);
+            }
+            catch
+            {
+                throw;
+            }
 
-			if (emailExists)
-			{
-				throw new DatabaseException(" Email already exists!\n");
-			}
-			try
-			{
-				PCMember = pcmemberService.Add(pcmember);
-			}
-			catch
-			{
-				throw;
-			}
+            if (userExists)
+            {
+                throw new DatabaseException(" User already exists!\n");
+            }
+            try
+            {
+                PCMember = pcmemberService.Add(pcmember);
+            }
+            catch
+            {
+                throw;
+            }
 
 			PCMember.Password = "";
 
-			return true;
-		}
-	}
-
-	//	bool IRegistrationViewModel.CheckUser(IPCMemberService pcmemberService, PCMember pcmember)
-	//	{
-	//		bool emailExists;
-	//		try
-	//		{
-	//			emailExists = pcmemberService.EmailExists(pcmember.Email);
-	//		}
-	//		catch
-	//		{
-	//			throw;
-	//		}
-
-	//		if (emailExists)
-	//		{
-	//			throw new DatabaseException(" Email already exists!\n");
-	//		}
-	//		try
-	//		{
-	//			PCMember = pcmemberService.Add(pcmember);
-	//		}
-	//		catch
-	//		{
-	//			throw;
-	//		}
-
-	//		PCMember.Password = "";
-
-	//		return true;
-	//	}
-	//}
+            return true;
+        }
+    }
 }
