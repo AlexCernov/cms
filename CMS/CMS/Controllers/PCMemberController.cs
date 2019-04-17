@@ -37,13 +37,12 @@ namespace CMS.Controllers
             return View(model);
         }
 
-        // SET:PCMember
+
         [HttpPost]
         public ActionResult Registration(PCMember pcmember)
         {
             try
             {
-
                 var model = new RegistrationViewModel(ModelState.IsValid, pcmember, PCMemberService);
                 return View(model);
             }
@@ -51,7 +50,6 @@ namespace CMS.Controllers
             {
                 throw new InternetException("Cannot request the correspondind viewmodel!\n");
             }
-
         }
     }
 }
