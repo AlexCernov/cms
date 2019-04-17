@@ -14,7 +14,20 @@ namespace CMS.Service
             this.pcmemberRepository = pcmemberRepository;
         }
 
-        public PCMember Add(PCMember addedPCMember)
+		string IPCMemberService.f
+		{
+			get
+			{
+				throw new NotImplementedException();
+			}
+
+			set
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		public PCMember Add(PCMember addedPCMember)
         {
             return pcmemberRepository.Add(addedPCMember);
         }
@@ -22,7 +35,7 @@ namespace CMS.Service
 
         public bool EmailExists(string email)
         {
-            return pcmemberRepository.FindByUsername(username) != null;
+            return pcmemberRepository.FindByEmail(email) != null;
         }
 
         public IList<PCMember> FindAll()
