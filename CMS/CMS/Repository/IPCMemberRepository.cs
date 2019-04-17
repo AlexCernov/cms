@@ -1,8 +1,5 @@
-﻿using System;
+﻿using CMS.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMS.Repository
 {
@@ -10,6 +7,7 @@ namespace CMS.Repository
     {
         PCMember Add(PCMember addedPcMember);
         PCMember FindByEmail(string email);
+        PCMember FindByUsername(string username);
         IList<PCMember> FindAll();
     }
 }

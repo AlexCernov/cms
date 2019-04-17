@@ -1,8 +1,5 @@
-﻿using System;
+﻿using CMS.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMS.Service
 {
@@ -10,6 +7,7 @@ namespace CMS.Service
     {
         PCMember Add(PCMember addedPCMember);
         bool EmailExists(string email);
+        bool UsernameExists(string username);
         IList<PCMember> FindAll();
     }
 }

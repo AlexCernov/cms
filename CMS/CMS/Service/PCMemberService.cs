@@ -1,7 +1,6 @@
-﻿using System;
+﻿using CMS.Models;
+using CMS.Repository;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace CMS.Service
 {
@@ -16,8 +15,9 @@ namespace CMS.Service
 
         public PCMember Add(PCMember addedPCMember)
         {
-            return pcmemberRepository.Add(addedPCMember):
+            return pcmemberRepository.Add(addedPCMember);
         }
+
 
         public bool EmailExists(string email)
         {
@@ -27,6 +27,12 @@ namespace CMS.Service
         public IList<PCMember> FindAll()
         {
             return pcmemberRepository.FindAll();
+        }
+
+        public bool UsernameExists(string username)
+        {
+            return pcmemberRepository.FindByUsername(username) != null;
+
         }
     }
 }

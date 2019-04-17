@@ -1,0 +1,2 @@
+D:\Scoala\An 2\Sem 2\Assignments\ISS\cms\CMS\CMS\obj\Debug\CMS.csprojAssemblyReference.cache
+D:\Scoala\An 2\Sem 2\Assignments\ISS\cms\CMS\CMS\obj\Debug\CMS.csproj.CoreCompileInputs.cache

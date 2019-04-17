@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using CMS.Exception;
+using CMS.Models;
+using CMS.Service;
 using Exception.DatabaseException;
 using Exception.InternetException;
 
@@ -19,7 +21,7 @@ namespace CMS.ViewModels
         public RegistrationViewModel()
         {
             Message = null;
-            Title = "Registration"
+            Title = "Registration";
         }
 
         public RegistrationViewModel(bool modelState, PCMember pcmember, IPCMemberService pcmemberService)
@@ -80,6 +82,16 @@ namespace CMS.ViewModels
             PCMember.Password = "";
 
             return true;
+        }
+
+        public bool CheckUser(IPCMemberService pcmemberService, PCMember pcmember)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CheckUser(IPCMemberService pcmemberService, PCMember pcmember)
+        {
+            throw new NotImplementedException();
         }
     }
 }

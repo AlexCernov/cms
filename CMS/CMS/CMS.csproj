@@ -159,7 +159,9 @@
     <Compile Include="Repository\PCMemberRepository.cs" />
     <Compile Include="Service\IPCMemberService.cs" />
     <Compile Include="Service\PCMemberService.cs" />
+    <Compile Include="ViewModels\ILoginViewModel.cs" />
     <Compile Include="ViewModels\IRegistrationViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
