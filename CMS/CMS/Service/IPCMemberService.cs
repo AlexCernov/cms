@@ -1,16 +1,16 @@
-﻿using System;
+﻿using CMS.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CMS.Models;
 
 namespace CMS.Service
 {
     public interface IPCMemberService
     {
-        PCMember Add(PCMember addedPCMember);
+		string f { get; set; }
+
+		PCMember Add(PCMember addedPCMember);
+        bool EmailExists(string email);
         bool UsernameExists(string username);
-        IList<PCMember> FindAll();
+		PCMember FindByEmail(string email);
+		IList<PCMember> FindAll();
     }
 }

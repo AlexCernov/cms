@@ -133,7 +133,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PCMemberController.cs" />
     <Compile Include="Exception\DatabaseException.cs" />
     <Compile Include="Exception\InternetException.cs" />
     <Compile Include="Global.asax.cs">
@@ -160,7 +159,9 @@
     <Compile Include="Repository\PCMemberRepository.cs" />
     <Compile Include="Service\IPCMemberService.cs" />
     <Compile Include="Service\PCMemberService.cs" />
+    <Compile Include="ViewModels\ILoginViewModel.cs" />
     <Compile Include="ViewModels\IRegistrationViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -203,7 +204,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\PCMember\Registration.cshtml" />
+    <Content Include="Views\PCMember\LogIn.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
